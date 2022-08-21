@@ -1,4 +1,11 @@
 # ToolBox
+To Contribute:
+* Clone the application
+* Make your changes to a branch other than main
+* Push your changes
+* Create a PR
+* Wait for a review
+* Merge review only after approval
 
 To start your Phoenix server:
 
