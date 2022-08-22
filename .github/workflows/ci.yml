@@ -23,10 +23,14 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    # runs:
+    #   using: "composite"
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      # - uses: actions/checkout@v3
+      # - uses: sevenshores/action-elixir-checks@v0.1.2-alpha
 
       # # Runs a single command using the runners shell
       # - name: Run a one-line script
@@ -39,20 +43,19 @@ jobs:
       #     echo test, and deploy your project.
 
       - name: Install dependencies
-      working-directory: ${{ inputs.base-dir }}
-      run: mix deps.get
-      shell: bash
+        working-directory: ${{ inputs.base-dir }}
+        run: mix deps.get
+        shell: bash
 
-    - name: Check formatting
-      working-directory: ${{ inputs.base-dir }}
-      run: mix format --check-formatted
-      shell: bash
+      - name: Check formatting
+        working-directory: ${{ inputs.base-dir }}
+        run: mix format --check-formatted
+        shell: bash
 
-    - name: Run tests
-      working-directory: ${{ inputs.base-dir }}
-      run: mix test
-      shell: bash
-
+      - name: Run tests
+        working-directory: ${{ inputs.base-dir }}
+        run: mix test
+        shell: bash
 # runs:
 #   using: "composite"
 #   steps:
@@ -66,31 +69,29 @@ jobs:
 #       run: mix format --check-formatted
 #       shell: bash
 
-    # - name: Compile dependencies
-    #   working-directory: ${{ inputs.base-dir }}
-    #   run: mix deps.compile
-    #   shell: bash
+# - name: Compile dependencies
+#   working-directory: ${{ inputs.base-dir }}
+#   run: mix deps.compile
+#   shell: bash
 
-    # - name: Compile app
-    #   working-directory: ${{ inputs.base-dir }}
-    #   run: mix compile
-    #   shell: bash
+# - name: Compile app
+#   working-directory: ${{ inputs.base-dir }}
+#   run: mix compile
+#   shell: bash
 
-    # - name: Compile app for test
-    #   working-directory: ${{ inputs.base-dir }}
-    #   run: mix compile
-    #   shell: bash
-    #   env:
-    #     MIX_ENV: test
+# - name: Compile app for test
+#   working-directory: ${{ inputs.base-dir }}
+#   run: mix compile
+#   shell: bash
+#   env:
+#     MIX_ENV: test
 
-    # - name: Run Credo
-    #   working-directory: ${{ inputs.base-dir }}
-    #   run: mix credo
-    #   shell: bash
+# - name: Run Credo
+#   working-directory: ${{ inputs.base-dir }}
+#   run: mix credo
+#   shell: bash
 
-
-
-    # - name: Run Dialyzer
-    #   working-directory: ${{ inputs.base-dir }}
-    #   run: mix dialyzer
-    #   shell: bash
+# - name: Run Dialyzer
+#   working-directory: ${{ inputs.base-dir }}
+#   run: mix dialyzer
+#   shell: bash
