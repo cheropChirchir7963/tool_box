@@ -142,20 +142,20 @@ jobs:
           otp-version: ${{ env.OTP_VERSION }}
           experimental-otp: true
 
-      - name: Install dependencies
-        working-directory: ${{ inputs.base-dir }}
-        run: cd ../ && mix deps.get
-        shell: bash
+      # - name: Install dependencies
+      #   working-directory: ${{ inputs.base-dir }}
+      #   run: cd ../ && mix deps.get
+      #   shell: bash
 
-      - name: Check formatting
-        working-directory: ${{ inputs.base-dir }}
-        run: cd ../ && mix format --check-formatted
-        shell: bash
+      # - name: Check formatting
+      #   working-directory: ${{ inputs.base-dir }}
+      #   run: cd ../ && mix format --check-formatted
+      #   shell: bash
 
-      - name: Run tests
-        working-directory: ${{ inputs.base-dir }}
-        run: cd ../ && mix test
-        shell: bash
+      # - name: Run tests
+      #   working-directory: ${{ inputs.base-dir }}
+      #   run: cd ../ && mix test
+      #   shell: bash
 
       # - name: Elixir Hex, mix build Cache
       #   uses: actions/cache@v2
