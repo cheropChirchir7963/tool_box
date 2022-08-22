@@ -1,0 +1,54 @@
+name: "Elixir Checks"
+description: "Run typical checks"
+# branding:
+#   icon: "check-square"
+#   color: "green"
+inputs:
+  base-dir:
+    description: "Mix app directory"
+    required: true
+    default: "./"
+runs:
+  using: "composite"
+  steps:
+    - name: Install dependencies
+      working-directory: ${{ inputs.base-dir }}
+      run: mix deps.get
+      shell: bash
+
+    - name: Check formatting
+      working-directory: ${{ inputs.base-dir }}
+      run: mix format --check-formatted
+      shell: bash
+
+    # - name: Compile dependencies
+    #   working-directory: ${{ inputs.base-dir }}
+    #   run: mix deps.compile
+    #   shell: bash
+
+    # - name: Compile app
+    #   working-directory: ${{ inputs.base-dir }}
+    #   run: mix compile
+    #   shell: bash
+
+    # - name: Compile app for test
+    #   working-directory: ${{ inputs.base-dir }}
+    #   run: mix compile
+    #   shell: bash
+    #   env:
+    #     MIX_ENV: test
+
+    # - name: Run Credo
+    #   working-directory: ${{ inputs.base-dir }}
+    #   run: mix credo
+    #   shell: bash
+
+    - name: Run tests
+      working-directory: ${{ inputs.base-dir }}
+      run: mix test
+      shell: bash
+
+    # - name: Run Dialyzer
+    #   working-directory: ${{ inputs.base-dir }}
+    #   run: mix dialyzer
+    #   shell: bash
