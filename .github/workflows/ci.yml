@@ -102,13 +102,11 @@ on:
   pull_request:
     branches:
       - main
-      # - develop
-      # - "feat/**"
-      # - "hotfix/**"
+      - develop
+      - "feat/**"
   push:
     branches:
-      # - "feat/**"
-      # - "hotfix/**"
+      - "feat/**"
       - feat-automations
 
 env:
