@@ -144,17 +144,20 @@ jobs:
 
       - name: Install dependencies
         working-directory: ${{ inputs.base-dir }}
-        run: cd ../../ && mix deps.get
+        run: cd ../../ 
+        run: mix deps.get
         shell: bash
 
       - name: Check formatting
         working-directory: ${{ inputs.base-dir }}
-        run: cd ../../ && mix format --check-formatted
+        run: cd ../../
+        run: mix format --check-formatted
         shell: bash
 
       - name: Run tests
         working-directory: ${{ inputs.base-dir }}
-        run: cd ../../ && mix test
+        run: cd ../../
+        run: mix test
         shell: bash
 
       # - name: Elixir Hex, mix build Cache
