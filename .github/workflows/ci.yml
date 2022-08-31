@@ -1,94 +1,45 @@
-name: tool_box Continuous Integration
+name: toolBox CI
 
 on:
-  pull_request:
-    types:
-      - opened
-      - reopened
-      - synchronize
   push:
-    branches:
-      - feat-automations
+    branches: ["feat-automations"]
+  pull_request:
+    branches: ["master"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  Test:
+  build:
+    name: Build and test
+    runs-on: ubuntu-latest
     services:
-      db:
+      postgres:
         image: postgres:14
-        ports: ["5432:5432"]
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-    strategy:
-      matrix:
-        elixir: ["1.13.4"]
-        otp: [25]
-    env:
-      MIX_ENV: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
-        with:
-          otp-version: ${{matrix.otp}}
-          elixir-version: ${{matrix.elixir}}
-      - run: mix deps.get
-      - run: mix test
+          POSTGRES_DB: toolbox_test
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
-  Format:
-    strategy:
-      matrix:
-        elixir: ["1.13.4"]
-        otp: [25]
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
+      - name: Set up Elixir
+        uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
         with:
-          otp-version: ${{matrix.otp}}
-          elixir-version: ${{matrix.elixir}}
-      - run: mix deps.get
-      - run: mix format --check-formatted
-
-  Credo:
-    strategy:
-      matrix:
-        elixir: ["1.13.4"]
-        otp: [25]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
+          elixir-version: "1.13.4"
+          otp-version: "25.0"
+      - name: Restore dependencies cache
+        uses: actions/cache@v3
         with:
-          otp-version: ${{matrix.otp}}
-          elixir-version: ${{matrix.elixir}}
-      - run: mix deps.get
-      - run: mix credo
-
-  Dialyzer:
-    strategy:
-      matrix:
-        elixir: ["1.13.4"]
-        otp: [25]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: set cache key
-        id: cache_key
-        run: |
-          mix_hash="${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}"
-          echo "::set-output name=mix_hash::$mix_hash"
-      - uses: actions/cache@v3
-        with:
-          path: |
-            _build/dev/*.plt
-            _build/dev/*.plt.hash
-          key: plt-cache-${{ steps.cache_key.outputs.mix_hash }}
-          restore-keys: |
-            plt-cache-
-      - uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
-        with:
-          otp-version: ${{matrix.otp}}
-          elixir-version: ${{matrix.elixir}}
-      - run: mix deps.get
-      - run: mix dialyzer
+          path: deps
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-
+      - name: Install dependencies
+        run: mix deps.get
+      - name: Run tests
+        run: mix test
+      - name: check formatted code
+        run: mix format --check-formatted
