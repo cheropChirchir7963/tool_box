@@ -1,166 +1,94 @@
-# name: "Elixir Checks"
-# description: "Run typical checks"
-# # branding:
-# #   icon: "check-square"
-# #   color: "green"
-# inputs:
-#   base-dir:
-#     description: "Mix app directory"
-#     required: true
-#     default: "./"
-
-# # Controls when the workflow will run
-# on:
-#   # Triggers the workflow on push or pull request events but only for the "main" branch
-#   push:
-#     branches: ["main"]
-#   pull_request:
-#     branches: ["main"]
-
-# jobs:
-#   # This workflow contains a single job called "build"
-#   build:
-#     # The type of runner that the job will run on
-#     runs-on: ubuntu-latest
-
-# runs:
-#   using: "composite"
-
-# Steps represent a sequence of tasks that will be executed as part of the job
-# steps:
-# Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-# - uses: actions/checkout@v3
-# - uses: sevenshores/action-elixir-checks@v0.1.2-alpha
-
-# # Runs a single command using the runners shell
-# - name: Run a one-line script
-#   run: echo Hello, world!
-
-# # Runs a set of commands using the runners shell
-# - name: Run a multi-line script
-#   run: |
-#     echo Add other actions to build,
-#     echo test, and deploy your project.
-
-# - name: Install dependencies
-#   working-directory: ${{ inputs.base-dir }}
-#   run: mix deps.get
-#   shell: bash
-
-# - name: Check formatting
-#   working-directory: ${{ inputs.base-dir }}
-#   run: mix format --check-formatted
-#   shell: bash
-
-# - name: Run tests
-#   working-directory: ${{ inputs.base-dir }}
-#   run: mix test
-#   shell: bash
-# runs:
-#   using: "composite"
-#   steps:
-#     - name: Install dependencies
-#       working-directory: ${{ inputs.base-dir }}
-#       run: mix deps.get
-#       shell: bash
-
-#     - name: Check formatting
-#       working-directory: ${{ inputs.base-dir }}
-#       run: mix format --check-formatted
-#       shell: bash
-
-# - name: Compile dependencies
-#   working-directory: ${{ inputs.base-dir }}
-#   run: mix deps.compile
-#   shell: bash
-
-# - name: Compile app
-#   working-directory: ${{ inputs.base-dir }}
-#   run: mix compile
-#   shell: bash
-
-# - name: Compile app for test
-#   working-directory: ${{ inputs.base-dir }}
-#   run: mix compile
-#   shell: bash
-#   env:
-#     MIX_ENV: test
-
-# - name: Run Credo
-#   working-directory: ${{ inputs.base-dir }}
-#   run: mix credo
-#   shell: bash
-
-# - name: Run Dialyzer
-#   working-directory: ${{ inputs.base-dir }}
-#   run: mix dialyzer
-#   shell: bash
-
-name: Format and Test
+name: tool_box Continuous Integration
 
 on:
   pull_request:
-    branches:
-      - main
-      - develop
-      - "feat/**"
+    types:
+      - opened
+      - reopened
+      - synchronize
   push:
     branches:
-      - "feat/**"
-      - feat-automations
-
-env:
-  OTP_VERSION: 25.0.2
-  ELIXIR_VERSION: 1.13.4
+      - master
 
 jobs:
-  test:
-    name: Compile and Test
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
+  Test:
     services:
-      postgres:
-        image: postgres
+      db:
+        image: postgres:14
+        ports: ["5432:5432"]
         env:
-          POSTGRES_DB: postgres
-          POSTGRES_PASSWORD: postgres
           POSTGRES_USER: postgres
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          POSTGRES_PASSWORD: postgres
+    strategy:
+      matrix:
+        elixir: ["1.13.4"]
+        otp: [25]
+    env:
+      MIX_ENV: test
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-elixir@v1
+      - uses: actions/checkout@v3
+      - uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
         with:
-          elixir-version: ${{ env.ELIXIR_VERSION }}
-          otp-version: ${{ env.OTP_VERSION }}
-          experimental-otp: true
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+      - run: mix deps.get
+      - run: mix test
 
-      # - name: Install dependencies
-      #   working-directory: ${{ inputs.base-dir }}
-      #   run: cd ../ && mix deps.get
-      #   shell: bash
+  Format:
+    strategy:
+      matrix:
+        elixir: ["1.13.4"]
+        otp: [25]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+      - run: mix deps.get
+      - run: mix format --check-formatted
 
-      # - name: Check formatting
-      #   working-directory: ${{ inputs.base-dir }}
-      #   run: cd ../ && mix format --check-formatted
-      #   shell: bash
+  Credo:
+    strategy:
+      matrix:
+        elixir: ["1.13.4"]
+        otp: [25]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: erlef/setup-beam@988e02bfe678367a02564f65ca2e37726dc0268f
+        with:
+          otp-version: ${{matrix.otp}}
+          elixir-version: ${{matrix.elixir}}
+      - run: mix deps.get
+      - run: mix credo
 
-      # - name: Run tests
-      #   working-directory: ${{ inputs.base-dir }}
-      #   run: cd ../ && mix test
-      #   shell: bash
-
-      # - name: Elixir Hex, mix build Cache
-      #   uses: actions/cache@v2
-      #   id: mix-cache
-      #   with:
-      #     path: |
-      #       deps
-      #       _build
-      #       priv/plts
-      #     key: ${{ runner.os }}-${{ env.OTP_VERSION }}-${{ env.ELIXIR_VERSION }}-${{ hashFiles('mix.lock') }}
+  # Dialyzer:
+  #   strategy:
+  #     matrix:
+  #       elixir: ["1.13.4"]
+  #       otp: [25]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - name: set cache key
+  #       id: cache_key
+  #       run: |
+  #         mix_hash="${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}"
+  #         echo "::set-output name=mix_hash::$mix_hash"
+  #     - uses: actions/cache@v2
+  #       with:
+  #         path: |
+  #           _build/dev/*.plt
+  #           _build/dev/*.plt.hash
+  #         key: plt-cache-${{ steps.cache_key.outputs.mix_hash }}
+  #         restore-keys: |
+  #           plt-cache-
+  #     - uses: erlef/setup-beam@v1
+  #       with:
+  #         otp-version: ${{matrix.otp}}
+  #         elixir-version: ${{matrix.elixir}}
+  #     - run: mix deps.get
+  #     - run: mix dialyzer
