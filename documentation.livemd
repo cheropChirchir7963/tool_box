@@ -1,0 +1,27 @@
+<!-- livebook:{"persist_outputs":true} -->
+
+# Untitled notebook
+
+## Project Features
+
+```elixir
+<!-- vim: set syntax=markdown: -->
+* Create a user
+* Implement basic CRUD operations. These include:
+  * CREATE: Add an entry for a website url/link to be saved in the DB.
+  * READ: Implement the logic to render saved urls/links from DB to the UI.
+  * UPDATE: Implement the logic to edit saved urls/links in the UI and update the DB.
+  * DELETE: Implement the logic to delete the saved urls/links in the DB and update the UI.
+
+* The UI will have one input field and 3 buttons (save, edit & delete)
+```
+
+## Tasks
+
+```elixir
+* Create routes, controllers, contexts & templates to implement above features
+* Create a database & tables & then configure DB connection to the project
+* Decide whether to automate DB & table creation using Makefile scripts and shell script files or create them manually.
+* Write tests for the project.
+* Create user
+```
