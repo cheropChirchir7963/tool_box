@@ -1,7 +1,7 @@
 import Config
 
 # Configure your database
-#config :tool_box, ToolBox.Repo,
+# config :tool_box, ToolBox.Repo,
 #  username: "postgres",
 #  password: "postgres",
 #  hostname: "localhost",
@@ -10,7 +10,7 @@ import Config
 #  show_sensitive_data_on_connection_error: true,
 #  pool_size: 10
 
-config: :ex_secrets,
+config :ex_secrets,
   providers: %{
     dot_env: %{
       path: ".env"
