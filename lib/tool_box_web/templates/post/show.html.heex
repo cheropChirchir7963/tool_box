@@ -1,0 +1,23 @@
+<h1>Show Post</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @post.title %></td>
+      <td><%= @post.body %></td>
+      <td><%= @post.image %></td>
+      </tr>
+  </tbody>
+</table>
+
+
+<span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span> |
+<span><%= link "Delete", to: Routes.post_path(@conn, :delete, @post), method: :delete, data: [confirm: "Are you sure?"] %></span> |
+<span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
