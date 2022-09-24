@@ -1,0 +1,5 @@
+<h1>Edit Box item</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.box_item_path(@conn, :update, @box_item)) %>
+
+<span><%= link "Back", to: Routes.box_item_path(@conn, :index) %></span>

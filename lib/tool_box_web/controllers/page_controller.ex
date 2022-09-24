@@ -13,7 +13,7 @@ defmodule ToolBoxWeb.PageController do
     render(conn, "hello.html", name: name)
   end
 
-  def dunia(conn, %{"jina"=> jina}) do
+  def dunia(conn, %{"jina" => jina}) do
     render(conn, "habari.html", jina: jina)
   end
 end

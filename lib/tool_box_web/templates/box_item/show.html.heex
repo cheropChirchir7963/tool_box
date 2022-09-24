@@ -1,0 +1,23 @@
+<h1>Show Box item</h1>
+
+<ul>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @box_item.url %>
+  </li>
+
+  <li>
+    <strong>Short description:</strong>
+    <%= @box_item.short_description %>
+  </li>
+
+  <li>
+    <strong>Snapshot:</strong>
+    <%= @box_item.snapshot %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.box_item_path(@conn, :edit, @box_item) %></span> |
+<span><%= link "Back", to: Routes.box_item_path(@conn, :index) %></span>
