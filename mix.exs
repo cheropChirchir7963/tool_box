@@ -20,7 +20,7 @@ defmodule ToolBox.MixProject do
   def application do
     [
       mod: {ToolBox.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ex_secrets]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 

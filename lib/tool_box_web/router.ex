@@ -24,7 +24,6 @@ defmodule ToolBoxWeb.Router do
     # get "/", BoxController, :index
     # get "/users", UserController, :index
     # get "/users/:id", UserController, :show
-    resources "/posts", PostController
     resources "/box", BoxItemController
     # resources "/", BoxController
   end
