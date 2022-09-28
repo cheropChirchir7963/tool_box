@@ -21,7 +21,11 @@ defmodule ToolBox.BoxTest do
     end
 
     test "create_box_item/1 with valid data creates a box_item" do
-      valid_attrs = %{short_description: "some short_description", snapshot: "some snapshot", url: "some url"}
+      valid_attrs = %{
+        short_description: "some short_description",
+        snapshot: "some snapshot",
+        url: "some url"
+      }
 
       assert {:ok, %BoxItem{} = box_item} = Box.create_box_item(valid_attrs)
       assert box_item.short_description == "some short_description"
@@ -35,7 +39,12 @@ defmodule ToolBox.BoxTest do
 
     test "update_box_item/2 with valid data updates the box_item" do
       box_item = box_item_fixture()
-      update_attrs = %{short_description: "some updated short_description", snapshot: "some updated snapshot", url: "some updated url"}
+
+      update_attrs = %{
+        short_description: "some updated short_description",
+        snapshot: "some updated snapshot",
+        url: "some updated url"
+      }
 
       assert {:ok, %BoxItem{} = box_item} = Box.update_box_item(box_item, update_attrs)
       assert box_item.short_description == "some updated short_description"

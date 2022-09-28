@@ -3,8 +3,16 @@ defmodule ToolBoxWeb.BoxItemControllerTest do
 
   import ToolBox.BoxFixtures
 
-  @create_attrs %{short_description: "some short_description", snapshot: "some snapshot", url: "some url"}
-  @update_attrs %{short_description: "some updated short_description", snapshot: "some updated snapshot", url: "some updated url"}
+  @create_attrs %{
+    short_description: "some short_description",
+    snapshot: "some snapshot",
+    url: "some url"
+  }
+  @update_attrs %{
+    short_description: "some updated short_description",
+    snapshot: "some updated snapshot",
+    url: "some updated url"
+  }
   @invalid_attrs %{short_description: nil, snapshot: nil, url: nil}
 
   describe "index" do
