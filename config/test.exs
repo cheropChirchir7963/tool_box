@@ -1,5 +1,8 @@
 import Config
 
+# Only in tests, remove the complexity from the password hashing algorithm
+config :bcrypt_elixir, :log_rounds, 1
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
@@ -12,6 +15,8 @@ config :tool_box, ToolBox.Repo,
   database: "tool_box_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: 10
+
+# config :ex_secrets, :on_secret_fetch_limit_reached, :ignore
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
