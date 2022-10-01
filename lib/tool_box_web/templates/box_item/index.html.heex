@@ -13,7 +13,7 @@
   <tbody>
 <%= for box_item <- @box do %>
     <tr>
-      <td><%= link "#{box_item.url}", to: box_item.url %></td>
+      <td><%= link "#{box_item.url}", to: box_item.url, target: "_blank", rel: "noopener noreferer" %></td>
       <td><%= box_item.short_description %></td>
       <td><%= box_item.snapshot %></td>
 
