@@ -20,6 +20,7 @@ defmodule ToolBoxWeb.Router do
   scope "/", ToolBoxWeb do
     pipe_through :browser
 
+    resources "/photos", PhotoController, except: [:edit, :update]
     resources "/", BoxItemController
   end
 

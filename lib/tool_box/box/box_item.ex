@@ -22,7 +22,8 @@ defmodule ToolBox.Box.BoxItem do
   Validates that the url start with either http or https
   """
   def validate_url(changeset) do
-    regex = ~r/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
+    regex =
+      ~r/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/
 
     changeset
     |> validate_format(:url, regex, message: "must start with either http:// or https://")
