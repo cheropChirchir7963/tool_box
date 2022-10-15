@@ -1,0 +1,5 @@
+<h1>Show Snapshot</h1>
+
+    <%= img_tag ToolBoxWeb.Uploaders.Snapshots.url({@snapshot.snapshot, @snapshot}, signed: true) %>
+
+<span><%= link "Back", to: Routes.snapshots_path(@conn, :index) %></span>

@@ -1,0 +1,9 @@
+<%= link "Upload a Snapshot", to: Routes.snapshots_path(@conn, :new) %>
+<h1>Snapshots</h1>
+<%= for snapshot <- @snapshots do %>
+  <%=
+    ToolBoxWeb.Uploaders.Snapshots.url({snapshot.snapshot, snapshot}, :thumb)
+    |> img_tag()
+    |> link(to: Routes.snapshots_path(@conn, :show, snapshot))
+  %>
+<% end %>
