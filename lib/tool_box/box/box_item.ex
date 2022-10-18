@@ -1,11 +1,14 @@
 defmodule ToolBox.Box.BoxItem do
   use Ecto.Schema
+  use Waffle.Ecto.Schema
+
   import Ecto.Changeset
 
   schema "box" do
     field :short_description, :string
-    field :snapshot, :string
+    field :snapshot, ToolBoxWeb.Uploaders.Snapshots.Type
     field :url, :string
+    field :uuid, :string
 
     timestamps()
   end
@@ -16,6 +19,8 @@ defmodule ToolBox.Box.BoxItem do
     |> cast(attrs, [:url, :short_description, :snapshot])
     |> validate_required([:url, :short_description, :snapshot])
     |> validate_url_changeset()
+    |> Map.update(:uuid, Ecto.UUID.generate, fn val -> val || Ecto.UUID.generate end)
+    |> cast_attachments(attrs, [:snapshot, :uuid])
   end
 
   @doc """
