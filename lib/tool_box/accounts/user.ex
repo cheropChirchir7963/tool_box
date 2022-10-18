@@ -42,6 +42,14 @@ defmodule ToolBox.Accounts.User do
     |> validate_length(:email, max: 160)
     |> unsafe_validate_unique(:email, ToolBox.Repo)
     |> unique_constraint(:email)
+    |> downcase(:email)
+  end
+
+  @doc """
+  Downcases the given string
+  """
+  def downcase(changeset, field) do
+    update_change(changeset, field, &String.downcase/1)
   end
 
   defp validate_password(changeset, opts) do

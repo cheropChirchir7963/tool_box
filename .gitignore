@@ -33,4 +33,7 @@ npm-debug.log
 /assets/node_modules/
 
 json.lock
+gigalixir_create_app.json
 
+
+/uploads

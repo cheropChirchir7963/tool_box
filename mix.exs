@@ -50,7 +50,8 @@ defmodule ToolBox.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:ex_secrets, "~> 0.1.1"}
+      {:waffle, "~> 1.1.5"},
+      {:waffle_ecto, "~> 0.0.11"}
     ]
   end
 
