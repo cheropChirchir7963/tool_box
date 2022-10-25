@@ -14,13 +14,14 @@ defmodule ToolBox.Box.BoxItem do
   end
 
   @doc false
+  # TODO: refactor this changeset; define snapshot changeset & call it here
   def changeset(box_item, attrs) do
     box_item
+    |> Map.update(:uuid, Ecto.UUID.generate(), fn val -> val || Ecto.UUID.generate() end)
+    |> cast_attachments(attrs, [:snapshot, :uuid])
     |> cast(attrs, [:url, :short_description, :snapshot])
     |> validate_required([:url, :short_description, :snapshot])
     |> validate_url_changeset()
-    |> Map.update(:uuid, Ecto.UUID.generate, fn val -> val || Ecto.UUID.generate end)
-    |> cast_attachments(attrs, [:snapshot, :uuid])
   end
 
   @doc """
@@ -33,4 +34,11 @@ defmodule ToolBox.Box.BoxItem do
     changeset
     |> validate_format(:url, regex, message: "must start with either http:// or https://")
   end
+
+  # def snapshot_changeset(snapshot,attrs) do
+  #   snapshot
+  #   |> Map.update(:uuid, Ecto.UUID.generate, fn val -> val || Ecto.UUID.generate end)
+  #   |> cast_attachments(attrs, [:snapshot, :uuid])
+  #   |> validate_required([:snapshot, :uuid])
+  # end
 end
