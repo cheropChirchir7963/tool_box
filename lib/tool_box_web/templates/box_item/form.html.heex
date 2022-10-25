@@ -1,4 +1,4 @@
-<.form let={f} for={@changeset} action={@action} {[multipart: true]}>
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
@@ -20,4 +20,4 @@
   <div>
     <%= submit "Save" %>
   </div>
-</.form>
+<% end %>
