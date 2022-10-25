@@ -47,7 +47,7 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-# Arc config
+# Waffle config
 config :waffle, storage: Waffle.Storage.Local
 
 # Import environment specific config. This must remain at the bottom
