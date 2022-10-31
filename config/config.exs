@@ -50,6 +50,13 @@ config :phoenix, :json_library, Jason
 # Arc config
 config :waffle, storage: Waffle.Storage.Local
 
+
+# Configure to use UTC timestamp in tables
+config :tool_box, ToolBox.Repo, migration_timestamps: [type: :utc_datetime]
+
+# While we store everything in UTC, we need to respect the user's tz
+config :elixir, :time_zone_database, Tzdata.TimeZoneDatabase
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
