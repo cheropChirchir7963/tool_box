@@ -50,7 +50,6 @@ config :phoenix, :json_library, Jason
 # Arc config
 config :waffle, storage: Waffle.Storage.Local
 
-
 # Configure to use UTC timestamp in tables
 config :tool_box, ToolBox.Repo, migration_timestamps: [type: :utc_datetime]
 
