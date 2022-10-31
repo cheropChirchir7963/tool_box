@@ -4,7 +4,7 @@ defmodule ToolBox.MixProject do
   def project do
     [
       app: :tool_box,
-      version: "0.1.0",
+      version: app_version(),
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [] ++ Mix.compilers(),
@@ -69,5 +69,15 @@ defmodule ToolBox.MixProject do
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
+  end
+
+  defp app_version do
+    if Mix.env() == :prod do
+      sha = System.get_env("SOURCE_VERSION")
+      truncated_sha = String.slice(sha, 0, 7)
+      "1.0.1-c" <> truncated_sha
+    else
+      "1.0.1"
+    end
   end
 end
