@@ -7,7 +7,6 @@ defmodule ToolBoxWeb.Uploaders.Snapshots do
 
   def validate({file, _}) do
     file_extension = file.file_name |> Path.extname() |> String.downcase()
-    IO.inspect(file_extension)
 
     case Enum.member?(@extension_whitelist, file_extension) do
       true -> :ok

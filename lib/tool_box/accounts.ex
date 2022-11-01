@@ -8,7 +8,6 @@ defmodule ToolBox.Accounts do
 
   alias ToolBox.Accounts.{User, UserToken, UserNotifier}
 
-
   @doc """
   Lists all users
   """
