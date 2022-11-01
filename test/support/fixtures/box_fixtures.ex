@@ -12,7 +12,7 @@ defmodule ToolBox.BoxFixtures do
       attrs
       |> Enum.into(%{
         short_description: "some short_description",
-        snapshot: "some snapshot",
+        # snapshot: "some snapshot",
         url: "some url"
       })
       |> ToolBox.Box.create_box_item()
