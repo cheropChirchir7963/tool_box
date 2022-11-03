@@ -1,4 +1,6 @@
 defmodule ToolBoxWeb.Uploaders.Snapshots do
+  @moduledoc false
+
   use Waffle.Definition
   use Waffle.Ecto.Definition
 
