@@ -1,10 +1,10 @@
-name: Fly CI/CD
+name: Fly Deploy
 
 on:
   push:
-    branches: [master]
+    branches: [deploy]
   pull_request:
-    branches: [master]
+    branches: [deploy]
 
 jobs:
   test:
@@ -16,7 +16,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
-        image: postgres:11
+        image: postgres:15
         ports: ["5432:5432"]
         options: >-
           --health-cmd pg_isready
@@ -44,7 +44,7 @@ jobs:
   deploy:
     name: Deploy app
     needs: test
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    if: ${{ github.event_name == 'merge' && github.ref == 'refs/heads/deploy' }}
     runs-on: ubuntu-latest
     env:
       FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
