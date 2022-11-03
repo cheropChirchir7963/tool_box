@@ -1,4 +1,6 @@
 defmodule ToolBox.Accounts.UserNotifier do
+  @moduledoc false
+
   import Swoosh.Email
 
   alias ToolBox.Mailer
