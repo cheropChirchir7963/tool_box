@@ -1,5 +1,5 @@
 defmodule ToolBox.Accounts.UserToken do
-   @moduledoc false
+  @moduledoc false
 
   use Ecto.Schema
   import Ecto.Query
