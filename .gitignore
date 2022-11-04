@@ -35,5 +35,5 @@ npm-debug.log
 json.lock
 gigalixir_create_app.json
 
-
+.env
 /uploads
