@@ -20,13 +20,8 @@ defmodule ToolBoxWeb.Router do
   scope "/", ToolBoxWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-    # get "/", BoxController, :index
-    # get "/users", UserController, :index
-    # get "/users/:id", UserController, :show
-    resources "/posts", PostController
-    resources "/box", BoxItemController
-    # resources "/", BoxController
+    resources "/snap", SnapshotsController, except: [:edit, :update]
+    resources "/", BoxItemController
   end
 
   # Other scopes may use custom stacks.

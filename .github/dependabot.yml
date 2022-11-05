@@ -8,8 +8,4 @@ updates:
   - package-ecosystem: "mix" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-<<<<<<< HEAD
       interval: "daily"
-=======
-      interval: "daily"
->>>>>>> 822460ee625d2cb114a020cb64771d4c8644f269

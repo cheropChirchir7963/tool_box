@@ -5,19 +5,11 @@
     </div>
   <% end %>
 
-  <%= label f, :url %>
-  <%= text_input f, :url %>
-  <%= error_tag f, :url %>
-
-  <%= label f, :short_description %>
-  <%= text_input f, :short_description %>
-  <%= error_tag f, :short_description %>
-
   <%= label f, :snapshot %>
   <%= file_input f, :snapshot %>
   <%= error_tag f, :snapshot %>
 
   <div>
-    <%= submit "Save" %>
+    <%= submit "Upload" %>
   </div>
 <% end %>

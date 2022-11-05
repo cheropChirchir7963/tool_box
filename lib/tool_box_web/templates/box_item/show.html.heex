@@ -1,23 +1,24 @@
 <h1>Show Box item</h1>
 
-<ul>
-
-  <li>
-    <strong>Url:</strong>
-    <%= @box_item.url %>
-  </li>
-
-  <li>
-    <strong>Short description:</strong>
-    <%= @box_item.short_description %>
-  </li>
-
-  <li>
-    <strong>Snapshot:</strong>
-    <%= @box_item.snapshot %>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: Routes.box_item_path(@conn, :edit, @box_item) %></span> |
-<span><%= link "Back", to: Routes.box_item_path(@conn, :index) %></span>
+<table>
+  <thead>
+    <tr>
+      <th>Url</th>
+      <th>Short Description</th>
+      <th>Snapshot</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= link "#{@box_item.url}", to: @box_item.url, target: "_blank", rel: "noopener noreferer" %></td>
+      <td><%= @box_item.short_description %></td>
+      <td>
+        <%= img_tag ToolBoxWeb.Uploaders.Snapshots.url({@box_item.snapshot, @box_item}, signed: true) %>
+        </td>
+      <td>
+        <span><%= link "Edit", to: Routes.box_item_path(@conn, :edit, @box_item) %></span>
+        <span><%= link "Back", to: Routes.box_item_path(@conn, :index) %></span>
+      </td>
+    </tr>
+  </tbody>
+</table>

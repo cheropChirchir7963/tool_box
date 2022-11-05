@@ -20,7 +20,7 @@ defmodule ToolBox.MixProject do
   def application do
     [
       mod: {ToolBox.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ex_secrets]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 
@@ -50,7 +50,13 @@ defmodule ToolBox.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:ex_secrets, "~> 0.1.1"}
+      {:waffle, "~> 1.1.5"},
+      {:waffle_ecto, "~> 0.0.11"},
+      {:credo, "~> 1.6"},
+      {:ex_aws, "~> 2.1.2"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.9"},
+      {:sweet_xml, "~> 0.6"}
     ]
   end
 

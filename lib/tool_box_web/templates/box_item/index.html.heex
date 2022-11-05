@@ -1,3 +1,5 @@
+<span><%= link "New Box item", to: Routes.box_item_path(@conn, :new) %></span>
+
 <h1>Listing Box</h1>
 
 <table>
@@ -6,17 +8,18 @@
       <th>Url</th>
       <th>Short description</th>
       <th>Snapshot</th>
-
       <th></th>
     </tr>
   </thead>
   <tbody>
 <%= for box_item <- @box do %>
     <tr>
-      <td><%= box_item.url %></td>
+      <td><%= link "#{box_item.url}", to: box_item.url, target: "_blank", rel: "noopener noreferer" %></td>
       <td><%= box_item.short_description %></td>
-      <td><%= box_item.snapshot %></td>
-
+      <td><%= ToolBoxWeb.Uploaders.Snapshots.url({box_item.snapshot, box_item}, signed: true)
+        |> img_tag()
+        |> link(to: Routes.box_item_path(@conn, :show, box_item))
+       %></td>
       <td>
         <span><%= link "Show", to: Routes.box_item_path(@conn, :show, box_item) %></span>
         <span><%= link "Edit", to: Routes.box_item_path(@conn, :edit, box_item) %></span>
@@ -26,5 +29,3 @@
 <% end %>
   </tbody>
 </table>
-
-<span><%= link "New Box item", to: Routes.box_item_path(@conn, :new) %></span>

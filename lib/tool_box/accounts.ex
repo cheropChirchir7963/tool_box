@@ -8,6 +8,11 @@ defmodule ToolBox.Accounts do
 
   alias ToolBox.Accounts.{User, UserToken, UserNotifier}
 
+  @doc """
+  Lists all users
+  """
+  def list_users, do: Repo.all(User)
+
   ## Database getters
 
   @doc """
