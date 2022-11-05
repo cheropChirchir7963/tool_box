@@ -1,9 +1,14 @@
 defmodule ToolBoxWeb.Uploaders.Snapshots do
+  @moduledoc false
+
   use Waffle.Definition
   use Waffle.Ecto.Definition
 
   @versions [:original]
   @extension_whitelist ~w(.jpg .jpeg .gif .png .svg)
+
+  # Makes images publicly accessible
+  @acl :public_read
 
   def validate({file, _}) do
     file_extension = file.file_name |> Path.extname() |> String.downcase()
