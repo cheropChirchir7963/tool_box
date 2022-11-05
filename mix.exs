@@ -52,7 +52,11 @@ defmodule ToolBox.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:waffle, "~> 1.1.5"},
       {:waffle_ecto, "~> 0.0.11"},
-      {:credo, "~> 1.6"}
+      {:credo, "~> 1.6"},
+      {:ex_aws, "~> 2.1.2"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.9"},
+      {:sweet_xml, "~> 0.6"}
     ]
   end
 

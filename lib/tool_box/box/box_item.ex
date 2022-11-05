@@ -1,4 +1,6 @@
 defmodule ToolBox.Box.BoxItem do
+  @moduledoc false
+
   use Ecto.Schema
   use Waffle.Ecto.Schema
 

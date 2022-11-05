@@ -47,8 +47,27 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-# Waffle config
-config :waffle, storage: Waffle.Storage.Local
+# Facilitate integration with S3 through ExAws.S3
+config :waffle,
+  # or Waffle.Storage.Local
+  storage: Waffle.Storage.S3,
+  # if using S3
+  bucket: System.get_env("AWS_BUCKET_NAME")
+
+# asset_host: "127.0.0.1"
+
+# If using S3:
+config :ex_aws,
+  debug_requests: true,
+  json_codec: Jason,
+  access_key_id: System.get_env("AWS_ACCESS_KEY_ID"),
+  secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),
+  # region: System.get_env("AWS_REGION") || "US East (Ohio) us-east-2",
+  s3: [
+    scheme: "https://",
+    host: "amozone.s3.amazonaws.com",
+    region: "us-east-1"
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
