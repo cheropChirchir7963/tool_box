@@ -52,7 +52,7 @@ config :waffle,
   # or Waffle.Storage.Local
   storage: Waffle.Storage.S3,
   # if using S3
-  bucket: System.get_env("AWS_BUCKET_NAME")
+  bucket: System.get_env("AWS_BUCKET_NAME", "amozone")
 
 # asset_host: "127.0.0.1"
 
