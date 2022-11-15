@@ -42,5 +42,9 @@ jobs:
       run: mix deps.get
     - name: Run tests
       run: mix test
+      env: 
+       AWS_ACCESS_KEY_ID: test
+       AWS_SECRET_ACCESS_KEY: test
+       AWS_BUCKET_NAME: amozone
     - name: check formatted code
       run: mix format --check-formatted
