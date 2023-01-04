@@ -49,17 +49,19 @@ config :phoenix, :json_library, Jason
 
 # Facilitate integration with S3 through ExAws.S3
 config :waffle,
+  version_timeout: 100_000,
   # or Waffle.Storage.Local
   storage: Waffle.Storage.S3,
-  # if using S3
+  # S3
   bucket: System.get_env("AWS_BUCKET_NAME")
 
 # asset_host: "127.0.0.1"
 
-# If using S3:
+# S3 configs
 config :ex_aws,
   debug_requests: true,
   json_codec: Jason,
+  # recv_timeout: 300_000,
   access_key_id: System.get_env("AWS_ACCESS_KEY_ID"),
   secret_access_key: System.get_env("AWS_SECRET_ACCESS_KEY"),
   # region: System.get_env("AWS_REGION") || "US East (Ohio) us-east-2",
@@ -68,6 +70,11 @@ config :ex_aws,
     host: "amozone.s3.amazonaws.com",
     region: "us-east-1"
   ]
+
+  # config :ex_aws, :hackney_opts,
+  #   recv_timeout: 300_000,
+  #   pool: false
+
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
